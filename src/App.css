@@ -1,0 +1,30 @@
+body{
+  font-family: Arial;
+  background:#f4f4f4;
+}
+
+.container{
+  width:80%;
+  margin:auto;
+}
+
+form{
+  display:flex;
+  gap:10px;
+  margin:20px 0;
+}
+
+input,select{
+  padding:10px;
+}
+
+button{
+  padding:10px;
+  cursor:pointer;
+}
+
+table{
+  width:100%;
+  margin-top:20px;
+  background:white;
+}
