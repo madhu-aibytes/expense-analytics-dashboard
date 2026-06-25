@@ -8,13 +8,21 @@ import "./App.css";
 function App() {
   const [transactions, setTransactions] = useState([]);
 
+  // Load saved transactions
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem("transactions"));
-    if (saved) {
-      setTransactions(saved);
+    const savedTransactions = localStorage.getItem("transactions");
+
+    if (savedTransactions) {
+      try {
+        setTransactions(JSON.parse(savedTransactions));
+      } catch (error) {
+        console.error("Error loading transactions:", error);
+        setTransactions([]);
+      }
     }
   }, []);
 
+  // Save transactions
   useEffect(() => {
     localStorage.setItem(
       "transactions",
@@ -22,21 +30,32 @@ function App() {
     );
   }, [transactions]);
 
+  // Add transaction
   const addTransaction = (transaction) => {
-    setTransactions([...transactions, transaction]);
+    setTransactions((prev) => [
+      ...prev,
+      transaction,
+    ]);
   };
 
   return (
     <div className="container">
-      <h1>Expense Analytics Dashboard</h1>
+      <h1>
+        💰 Personal Finance Tracker &
+        Analytics Dashboard
+      </h1>
 
-      <Dashboard transactions={transactions} />
+      <Dashboard
+        transactions={transactions}
+      />
 
       <TransactionForm
         addTransaction={addTransaction}
       />
 
-      <ExpenseChart transactions={transactions} />
+      <ExpenseChart
+        transactions={transactions}
+      />
 
       <TransactionList
         transactions={transactions}
